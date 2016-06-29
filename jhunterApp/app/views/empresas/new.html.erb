@@ -1,0 +1,6 @@
+<h1>Cadastro de Empresas</h1>
+<%= form_for :empresas do |f| %>
+  Usuario <%= f.text_field :user_name %>
+  Senha <%= f.password_field :password %>
+  <%= f.submit "Cadastrar", class:"btn btn-submit" %>
+<% end %>

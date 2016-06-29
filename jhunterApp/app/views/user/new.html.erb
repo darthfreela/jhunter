@@ -1,0 +1,20 @@
+<h1>Cadastro de Usuários</h1>
+<div class="col-md-6 col-centered">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Cadastro de usuarios</h3>
+    </div>
+    <%= form_for :users, :html => {:role => 'form'} do |f| %>
+    <div class="box-body">
+        <div class="form-group">
+            Usuario <%= f.text_field :user_name, class: "form-control" %>
+            Senha <%= f.password_field :password, class: "form-control" %>
+            Faculdade <%= f.text_field :faculdade, class: "form-control" %>
+            Cidade <%= f.text_field :cidade, class: "form-control" %>
+            Skills <%= f.text_field :skills, class: "form-control" %>
+        </div>
+        <%= f.submit "Cadastrar", class:"btn btn-submit" %>
+    </div>
+    <% end %>
+  </div>
+</div>

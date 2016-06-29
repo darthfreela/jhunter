@@ -1,0 +1,8 @@
+<h1>Login</h1>
+<%= form_for :users do |f| %>
+  Usuario <%= f.text_field :user_name %>
+  Senha <%= f.password_field :password %>
+  <%= f.submit "Login", class:"btn btn-submit" %>
+<% end %>
+<%= link_to "Cadastro de Usuário", '/usuarios/signup'%>
+<%= link_to "Cadastro de Empresas", '/empresas/signup'%>

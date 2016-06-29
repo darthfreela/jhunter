@@ -1,0 +1,12 @@
+<%= link_to "Home", '/', :class => 'brand' %>
+<div class="nav pull-right">
+  <% if current_user %>
+	<ul>
+		<li><%= current_user.user_name %></li>
+		<li><%= link_to "Log out", logout_path, method: "delete" %></li>
+	</ul>
+	<% else %>
+	 <ul>
+  		<li><%= link_to "Login", 'login' %></a></li>
+  <% end %>
+</div>

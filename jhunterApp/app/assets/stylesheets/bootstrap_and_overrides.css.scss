@@ -1,0 +1,15 @@
+@import "bootstrap";
+body {
+  padding-top: 60px;
+  text-align: center;
+}
+
+header {
+  background-color: black;
+  color: white;
+}
+
+.col-centered{
+  float: none !important;
+  margin: 0 auto;
+}
