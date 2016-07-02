@@ -39,4 +39,7 @@ class User
     return doc.nil? ? nil : User.new(doc)
   end
 
+  def self.split(texto, x)
+    return texto.split(/x/)
+  end
 end
