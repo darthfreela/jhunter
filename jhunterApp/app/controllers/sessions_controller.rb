@@ -7,12 +7,12 @@ class SessionsController < ApplicationController
     @user = User.find(@user.user_name, @user.password)
     if @user
       session[:user_id] = @user.id
-      redirect_to index_path
+      redirect_to indexuser_path
     else
       @empresa = Empresa.new(user_params)
       @empresa = Empresa.find(@empresa.user_name, @empresa.password)
       session[:user_id] = @empresa.id
-      redirect_to index_path
+      redirect_to indexempresa_path
     end
   end
 

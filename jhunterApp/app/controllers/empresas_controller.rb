@@ -8,10 +8,14 @@ class EmpresasController < ApplicationController
     @empresa = Empresa.new(user_params)
     if @empresa.save(@empresa)
       session[:user_id] = @empresa.id
-      redirect_to index_path
+      redirect_to indexempresa_path
     else
       redirect_to '/empresas/signup'
     end
+  end
+
+  def show
+    @empresa = Empresa.return_empresa_data(session[:user_id])
   end
 
   private

@@ -1,7 +1,7 @@
 class Empresa
   include Mongoid::Document
   include Mongoid::Timestamps
-  attr_accessor :password, :user_name
+  attr_accessor :password, :user_name, :cidade
 
   #convenience method for access to client in console
   def self.mongo_client
@@ -15,7 +15,14 @@ class Empresa
   def save(e)
     SymmetricEncryption.load!
     pass = SymmetricEncryption.encrypt e.password
-    self.class.collection.insert_one(user_name: e.user_name , password: pass)
+    self.class.collection.insert_one(user_name: e.user_name,
+                                      password: pass,
+                                      cidade: e.cidade)
+  end
+
+  def self.return_empresa_data(session)
+    doc = collection.find(_id: BSON::ObjectId(session['$oid'])).first
+    return doc.nil? ? nil : Empresa.new(doc)
   end
 
   def self.find(session, pass)

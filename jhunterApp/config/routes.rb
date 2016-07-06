@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get '/empresas/signup' => 'empresas#new'
   post '/empresas/signup' => 'empresas#create'
 
-  get '/index' => 'user#show'
+  #redireciona para a pagina inicial
+  get '/indexuser' => 'user#show'
+  get '/indexempresa' => 'empresas#show'
   #criar um novo usuário
   get '/login' => 'sessions#new'
   post 'login' => 'sessions#create'
