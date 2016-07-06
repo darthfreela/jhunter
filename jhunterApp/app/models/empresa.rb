@@ -1,7 +1,7 @@
 class Empresa
   include Mongoid::Document
   include Mongoid::Timestamps
-  attr_accessor :password, :user_name, :cidade
+  attr_accessor :password, :user_name, :cidade, :nome_vaga, :skills_necessarios, :descricao
 
   #convenience method for access to client in console
   def self.mongo_client
@@ -21,7 +21,16 @@ class Empresa
   end
 
   def self.inserir_nova_vaga(params)
-    doc = collection.find(_id: BSON::ObjectId(session['$oid'])).first
+    collection.updateOne( {_id: BSON::ObjectId(session['$oid'])},
+                            {$set: {vagas :
+                              [
+                                {nome_vaga: params.nome_vaga},
+                                {skills_necessarios: params.skills_necessarios},
+                                {descricao: params.descricao}
+                              ]
+                            }
+                          })
+
     return true
   end
 
