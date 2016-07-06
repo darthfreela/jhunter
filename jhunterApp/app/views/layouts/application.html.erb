@@ -26,6 +26,9 @@
             <div class="span12">
               <%= render 'layouts/messages' %>
               <%= yield %>
+              <script>
+                <%= yield :js %>
+              </script>
             </div>
           </div>
           <footer>

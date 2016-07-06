@@ -20,6 +20,11 @@ class Empresa
                                       cidade: e.cidade)
   end
 
+  def self.inserir_nova_vaga(params)
+    doc = collection.find(_id: BSON::ObjectId(session['$oid'])).first
+    return true
+  end
+
   def self.return_empresa_data(session)
     doc = collection.find(_id: BSON::ObjectId(session['$oid'])).first
     return doc.nil? ? nil : Empresa.new(doc)
