@@ -40,6 +40,15 @@ class Empresa
     return doc.nil? ? nil : Empresa.new(doc)
   end
 
+  def self.all
+    doc = collection.find()
+    br = Array.new
+    for a in doc
+      br << Empresa.new(a)
+    end
+    return br
+  end
+
   def self.find(session, pass)
     SymmetricEncryption.load!
     pass = SymmetricEncryption.encrypt pass

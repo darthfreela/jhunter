@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   post '/empresas/inserir_vaga' => 'empresas#inserir_vaga'
+  post '/usuarios/inserir_interesse' => 'user#inserir_interesse'
+  post '/usuarios/atualiza_status_vaga' => 'user#atualiza_status_vaga'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
