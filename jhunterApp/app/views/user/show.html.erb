@@ -77,8 +77,10 @@
               <div class="box-body">
                 <ul id="quadro_vagas" class="todo-list">
                   <% @empresas.each do |e| %>
+                  <% e.vagas.each do |v|%>
                     <li>
-                      <% e.vagas.each do |v|%>
+
+
                         <!-- drag handle -->
                         <span class="handle">
                           <i class="fa fa-ellipsis-v"></i>
@@ -89,7 +91,7 @@
                         <% array = v['skills_necessarios'].to_s.split(/,/) %>
                         <!-- Emphasis label -->
                         <% array.each do |s|%>
-                          <small class="label label-danger"><i class="fa fa-clock-o"></i><%= s %></small>
+                          <small class="label label-danger"><%= s %></small>
                         <% end %>
 
                       <!-- General tools such as edit or delete-->
@@ -97,10 +99,11 @@
                         <%=link_to raw("<i class='fa fa-thumbs-o-up'></i>"), {:controller => 'user', :action => 'inserir_interesse', :interesse => {:id_empresa => e.id, :nome_vaga => v['nome_vaga'], :skills_necessarios => v['skills_necessarios'], :descricao => v['descricao']}}, method: :post %>
                         <i class="fa fa-thumbs-o-down"></i>
                       </div>
-                      <small class="label label-success"><i class="fa fa-clock-o"></i><%= e.user_name %></small>
+                      <small class="label label-success"><%= e.user_name %></small>
+
                     </li>
                     <% end %>
-                  <% end %>
+                    <% end %>
                 </ul>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -144,68 +147,46 @@
               </div><!-- /.box -->
 
             <!-- Calendar -->
-            <div class="box box-solid bg-green-gradient">
-              <div class="box-header">
-                <i class="fa fa-calendar"></i>
-                <h3 class="box-title">Progresso</h3>
-                <!-- tools box -->
-                <div class="pull-right box-tools">
-                  <!-- button with a dropdown -->
-                  <div class="btn-group">
-                    <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
-                    <ul class="dropdown-menu pull-right" role="menu">
-                      <li class="divider"></li>
-                      <li><a href="#">Visualizar Progresso</a></li>
-                    </ul>
-                  </div>
-                  <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                  <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div><!-- /. tools -->
-              </div><!-- /.box-header -->
-              <div class="box-body no-padding">
-                <!--The calendar -->
-                <div id="calendar" style="width: 100%"></div>
-              </div><!-- /.box-body -->
-              <div class="box-footer text-black">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <!-- Progress bars -->
-                    <div class="clearfix">
-                      <span class="pull-left">Task #1</span>
-                      <small class="pull-right">90%</small>
+            <% if !@skills_vaga.nil? %>
+              <div class="box box-solid bg-green-gradient">
+                <div class="box-header">
+                  <i class="fa fa-calendar"></i>
+                  <h3 class="box-title">Progresso - <%= @nome_da_vaga %> </h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <!-- button with a dropdown -->
+                    <div class="btn-group">
+                      <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
+                      <ul class="dropdown-menu pull-right" role="menu">
+                        <li class="divider"></li>
+                        <li><a href="#">Visualizar Progresso</a></li>
+                      </ul>
                     </div>
-                    <div class="progress xs">
-                      <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
-                    </div>
-
-                    <div class="clearfix">
-                      <span class="pull-left">Task #2</span>
-                      <small class="pull-right">70%</small>
-                    </div>
-                    <div class="progress xs">
-                      <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
-                    </div>
-                  </div><!-- /.col -->
-                  <div class="col-sm-6">
-                    <div class="clearfix">
-                      <span class="pull-left">Task #3</span>
-                      <small class="pull-right">60%</small>
-                    </div>
-                    <div class="progress xs">
-                      <div class="progress-bar progress-bar-green" style="width: 60%;"></div>
-                    </div>
-
-                    <div class="clearfix">
-                      <span class="pull-left">Task #4</span>
-                      <small class="pull-right">40%</small>
-                    </div>
-                    <div class="progress xs">
-                      <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
-                    </div>
-                  </div><!-- /.col -->
-                </div><!-- /.row -->
-              </div>
-            </div><!-- /.box -->
+                    <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <!--The calendar -->
+                  <div id="calendar" style="width: 100%"></div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-black">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- Progress bars -->
+                      <% @skills_faltando.each do |s| %>
+                        <div class="clearfix">
+                          <span class="pull-left"><%= s %></span>
+                          <small class="pull-right">90%</small>
+                        </div>
+                        <div class="progress xs">
+                          <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
+                        </div>
+                      <% end %>
+                  </div><!-- /.row -->
+                </div>
+              </div><!-- /.box -->
+            <% end %>
 
           </section><!-- right col -->
         </div><!-- /.row (main row) -->

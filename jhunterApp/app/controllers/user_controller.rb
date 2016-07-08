@@ -28,8 +28,36 @@ class UserController < ApplicationController
 
   #metodo de controle de interesses
   def atualiza_status_vaga
+    @skills_faltando = Array.new
     @skills_user = User.return_skills_user(session[:user_id])
     @skills_vaga = User.return_skills_interesses(session[:user_id])
+    @skills_vaga.each do |s|
+      @x = s[1]
+    end
+      if @skills_vaga.nil?
+        @nome_da_vaga = @kills_vaga[0][0]
+      end
+      if !@x.nil?
+        a = @x.split(/,/)
+      end
+      if !@skills_user.nil?
+        b = @skills_user.split(/,/)
+        b = b[0]
+      end
+      #verificar quais skills o usuario não possui
+      c = nil
+      if !a.nil? && !b.nil?
+        b.each do |dado|
+          a.delete(dado)
+        end
+      end
+      if !b.nil?
+        @skills_faltando = a
+      end
+      if @skills_faltando.nil?
+        @skills_faltando = Array.new
+      end
+
   end
 
   private
