@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'sessions#new'
   post '/' => 'sessions#create'
   #criar um novo usuário
@@ -13,12 +12,13 @@ Rails.application.routes.draw do
   #redireciona para a pagina inicial
   get '/indexuser' => 'user#show'
   get '/indexempresa' => 'empresas#show'
+  post 'indexempresa' => 'empresas#show'
   #criar um novo usuário
   get '/login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  post 'inserir_vaga' => 'empresas#inserir_vaga'
+  post '/empresas/inserir_vaga' => 'empresas#inserir_vaga'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

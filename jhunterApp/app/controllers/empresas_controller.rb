@@ -1,5 +1,6 @@
 class EmpresasController < ApplicationController
   before_action :require_user, only: [:index, :show]
+
   def new
     @empresa = Empresa.new
   end
@@ -19,11 +20,9 @@ class EmpresasController < ApplicationController
   end
 
   def inserir_vaga
-    @ok = Empresa.inserir_nova_vaga(vaga_params)
+    @ok = Empresa.inserir_nova_vaga(vaga_params, session[:user_id])
     respond_to do |format|
-      if @ok
-        format.js
-      end
+      format.js
     end
   end
 

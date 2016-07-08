@@ -1,7 +1,7 @@
 class Empresa
   include Mongoid::Document
   include Mongoid::Timestamps
-  attr_accessor :password, :user_name, :cidade, :nome_vaga, :skills_necessarios, :descricao
+  attr_accessor :password, :user_name, :cidade, :nome_vaga, :skills_necessarios, :descricao, :vagas, :nome_vaga
 
   #convenience method for access to client in console
   def self.mongo_client
@@ -20,18 +20,19 @@ class Empresa
                                       cidade: e.cidade)
   end
 
-  def self.inserir_nova_vaga(params)
-    collection.updateOne( {_id: BSON::ObjectId(session['$oid'])},
-                            {$set: {vagas :
-                              [
-                                {nome_vaga: params.nome_vaga},
-                                {skills_necessarios: params.skills_necessarios},
-                                {descricao: params.descricao}
-                              ]
-                            }
-                          })
+  def self.inserir_nova_vaga(p, session)
+    vagas = Array.new
+    emp = collection.find(_id: BSON::ObjectId(session['$oid'])).first
+    emp = Empresa.new(emp)
+    v = emp.vagas
+    for i in v
+      vagas << i
+    end
+      vagas << {:nome_vaga => p['nome_vaga'],
+                :skills_necessarios => p['skills_necessarios'],
+                :descricao => p['descricao']}
 
-    return true
+    collection.find(_id: BSON::ObjectId(session['$oid'])).update_one("$set" => { :vagas => vagas})
   end
 
   def self.return_empresa_data(session)

@@ -75,95 +75,30 @@
                 </div>
               </div><!-- /.box-header -->
               <div class="box-body">
-                <ul class="todo-list">
-                  <li>
-                    <!-- drag handle -->
-                    <span class="handle">
-                      <i class="fa fa-ellipsis-v"></i>
-                      <i class="fa fa-ellipsis-v"></i>
-                    </span>
-                    <!-- checkbox -->
-                    <input type="checkbox" value="" name="">
-                    <!-- todo text -->
-                    <span class="text">Design a nice theme</span>
-                    <!-- Emphasis label -->
-                    <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                    <!-- General tools such as edit or delete-->
-                    <div class="tools">
-                      <i class="fa fa-edit"></i>
-                      <i class="fa fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fa fa-ellipsis-v"></i>
-                      <i class="fa fa-ellipsis-v"></i>
-                    </span>
-                    <input type="checkbox" value="" name="">
-                    <span class="text">Make the theme responsive</span>
-                    <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
-                    <div class="tools">
-                      <i class="fa fa-edit"></i>
-                      <i class="fa fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fa fa-ellipsis-v"></i>
-                      <i class="fa fa-ellipsis-v"></i>
-                    </span>
-                    <input type="checkbox" value="" name="">
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
-                    <div class="tools">
-                      <i class="fa fa-edit"></i>
-                      <i class="fa fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fa fa-ellipsis-v"></i>
-                      <i class="fa fa-ellipsis-v"></i>
-                    </span>
-                    <input type="checkbox" value="" name="">
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                    <div class="tools">
-                      <i class="fa fa-edit"></i>
-                      <i class="fa fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fa fa-ellipsis-v"></i>
-                      <i class="fa fa-ellipsis-v"></i>
-                    </span>
-                    <input type="checkbox" value="" name="">
-                    <span class="text">Check your messages and notifications</span>
-                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
-                    <div class="tools">
-                      <i class="fa fa-edit"></i>
-                      <i class="fa fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fa fa-ellipsis-v"></i>
-                      <i class="fa fa-ellipsis-v"></i>
-                    </span>
-                    <input type="checkbox" value="" name="">
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
-                    <div class="tools">
-                      <i class="fa fa-edit"></i>
-                      <i class="fa fa-trash-o"></i>
-                    </div>
-                  </li>
+                <ul id="quadro_vagas" class="todo-list">
+                  <% @empresa.vagas.each do |v| %>
+                    <li>
+                      <!-- drag handle -->
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <!-- todo text -->
+                      <span class="text"><%= v['nome_vaga'] %></span>
+                      <% array = v['skills_necessarios'].to_s.split(/,/) %>
+                      <!-- Emphasis label -->
+                      <% array.each do |s|%>
+                        <small class="label label-danger"><i class="fa fa-clock-o"></i><%= s %></small>
+                      <% end %>
+                      <!-- General tools such as edit or delete-->
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                  <% end %>
                 </ul>
               </div><!-- /.box-body -->
-              <div class="box-footer clearfix no-border">
-                <button class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
-              </div>
             </div><!-- /.box -->
 
             <!-- quick email widget -->
@@ -177,18 +112,18 @@
                 </div><!-- /. tools -->
               </div>
               <div class="box-body">
-                <%= form_for :cadastro_vaga, remote: true do |f| %>
+                <%= form_for :cadastro_vaga, :url => {:action => 'inserir_vaga'}, :html => {method: :post }, remote: true do |f| %>
                   <div class="form-group">
-                    <%= f.text_field :nome_vaga, class: "form-control", placeholder: "Nome da vaga" %>
+                    <%= f.text_field :nome_vaga, class: "form-control", placeholder: "Nome da vaga", id: "txt_nome_vaga" %>
                   </div>
                   <div class="form-group">
-                    <%= f.text_field :skills_necessarios, class: "form-control", placeholder: "Skills necessários" %>
+                    <%= f.text_field :skills_necessarios, class: "form-control", placeholder: "Skills necessários", id: "txt_skills" %>
                   </div>
                   <div>
-                    <%= f.text_area :descricao, class: "form-control", style: "width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder: "Descrição da vaga" %>
+                    <%= f.text_area :descricao, class: "form-control", style: "width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", placeholder: "Descrição da vaga", id: "txt_descricao" %>
                   </div>
                   <div class="box-footer clearfix">
-                    <%=button_to "Cadastrar", inserir_vaga_path,  class: 'pull-right btn btn-default', method: :post %>
+                    <%=f.submit "Cadastrar",  class: 'pull-right btn btn-default'%>
                   </div>
                 <% end %>
               </div>
@@ -359,7 +294,15 @@
           </section><!-- right col -->
         </div><!-- /.row (main row) -->
 <% content_for :js do %>
-$('form').bind('ajax:complete', function(){
-  alert('ajax bombando!');
-});
+  $('form').bind('ajax:success', function(xhr, result){
+    alert('Campo inserido!');
+    nome_vaga = $('#txt_nome_vaga').val()
+    skills = $('#txt_skills').val().split(/,/);
+    desc =  $('#txt_descricao').val();
+    $('#txt_nome_vaga').val("")
+    $('#txt_skills').val("")
+    $('#txt_descricao').val("")
+
+    $('#quadro_vagas').append("<li><span class='handle'><i class='fa fa-ellipsis-v'></i><i class='fa fa-ellipsis-v'></i></span><span class='text'>" + nome_vaga + "<small class='label label-danger'><i class='fa fa-clock-o'></i></small><div class='tools'><i class='fa fa-edit'></i><i class='fa fa-trash-o'>a</i></div></li>");
+  });
 <% end %>
