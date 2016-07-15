@@ -30,7 +30,9 @@ class Empresa
     end
       vagas << {:nome_vaga => p['nome_vaga'],
                 :skills_necessarios => p['skills_necessarios'],
-                :descricao => p['descricao']}
+                :descricao => p['descricao'],
+                :vagas => []
+              }
 
     collection.find(_id: BSON::ObjectId(session['$oid'])).update_one("$set" => { :vagas => vagas})
   end
